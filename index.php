@@ -20,13 +20,21 @@ if (have_posts()):
 
             if($categories){
                 foreach ($categories as $category){
-                    $output .= '<a href="'.get_category_link($category->term_ID).'">'.$category->cat_name . $separator.'</a>';
+                    $output .= '<a href="'.get_category_link($category->term_id).'">'.$category->cat_name . $separator.'</a>';
                 }
                 echo trim($output, $separator);
             }
             ?>
             </p>
-            <?php the_content(); ?>
+
+            <?php
+             if($post->post_excerpt){ ?>
+                 <p><?php echo get_the_excerpt(); ?><a href="<?php the_permalink();?>">Read More&raquo;</a></p>
+
+             <?php    }else{
+                 the_content();
+             }
+            ?>
         </article>
     <?php
     endwhile;
